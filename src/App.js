@@ -24,6 +24,18 @@ function App() {
   const [guesses, setGuesses] = useState(3);
   const [score, setScore] = useState(0);
 
+  const clearLetterState = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]);
+  }
+
+  useEffect(() => {
+    if (guesses <= 0) {
+      clearLetterState();
+      setGameStage(stages[2].name);
+    }
+  }, [guesses])
+
   const pickWordAndCategory = () => {
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]
@@ -64,10 +76,14 @@ function App() {
         ...actualWrongLetters,
         normalizedLetter
       ]);
+
+      setGuesses((actualGuesses) => actualGuesses - 1);
     }
   }
 
   const retry = () => {
+    setScore(0);
+    setGuesses(3);
     setGameStage(stages[0].name);
   }
 
