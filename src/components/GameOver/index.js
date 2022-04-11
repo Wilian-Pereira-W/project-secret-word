@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './styles.module.scss'
 
-function GameOver( { retry } ) {
+function GameOver( { retry, score } ) {
   return (
-    <div>
-      <h1>Game Over</h1>
+    <div className={styles.container}>
+      <h1>Fim de jogo</h1>
+      <h2>A sua pontuação foi: <span>{score}</span></h2>
       <button
         type="button"
         onClick={retry}
