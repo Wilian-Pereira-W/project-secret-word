@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './styles.module.scss'
 
 function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetters, wrongLetters, guesses, score } ) {
+
+  const [letter, setLetter] = useState('');
+  const letterInputRef = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    verifyLetter(letter);
+    setLetter('')
+    letterInputRef.current.focus();
+  }
+
   return (
     <div className={styles.game}>
       <p className={styles.points}>
@@ -24,8 +36,16 @@ function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetter
       </div>
       <div className={styles.letterContainer}>
         <p>Tente adivinhar uma letra da palavra:</p>
-        <form>
-          <input type="text" name="letter" maxLength="1" required/>
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            name="letter" 
+            maxLength="1" 
+            required 
+            onChange={({target}) => setLetter(target.value)}
+            value={letter}
+            ref={letterInputRef}
+          />
           <button type="button">Jogar</button>
         </form>
       </div>
