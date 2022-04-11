@@ -46,7 +46,7 @@ function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetter
             value={letter}
             ref={letterInputRef}
           />
-          <button type="button">Jogar</button>
+          <button>Jogar</button>
         </form>
       </div>
       <div className={styles.wrongLettersContainer}>
