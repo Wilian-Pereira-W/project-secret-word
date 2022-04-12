@@ -70,6 +70,7 @@ function App() {
     }
     if(guessedLetters.length === 0 && uniqueLetters.length === 0) {
       setScore(0);
+      setGameStage(stages[0].name);
     }
 
   }, [guessedLetters, letters, startGame]);
