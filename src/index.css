@@ -26,3 +26,6 @@ button {
 button:hover {
   background-color: #0923AF;
 }
+button:focus {
+  color: red;
+}
