@@ -61,12 +61,15 @@ function App() {
 
   useEffect(() => {
     
-    const uniqueLetters = [...new Set(letters)]
+    const uniqueLetters = [...new Set(letters)];
 
     if(guessedLetters.length === uniqueLetters.length) {
       setScore((actualScore) => actualScore += 100);
 
       startGame();
+    }
+    if(guessedLetters.length === 0 && uniqueLetters.length === 0) {
+      setScore(0);
     }
 
   }, [guessedLetters, letters, startGame]);
