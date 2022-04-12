@@ -45,7 +45,14 @@ function App() {
     return {word, category};
   }, [words]);
 
-  const startGame = useCallback(() => {
+  const startGame = useCallback((difficulty) => {
+    if(difficulty === 'Fácil') {
+      setGuesses(7);
+    } else if (difficulty === 'Médio') {
+      setGuesses(5);
+    } else {
+      setGameStage(3);
+    }
     const { word, category } = pickWordAndCategory();
 
     clearLetterState();
@@ -57,6 +64,7 @@ function App() {
     setLetters(wordLetters)
 
     setGameStage(stages[1].name);
+    console.log(difficulty);
   }, [pickWordAndCategory]);
 
   useEffect(() => {
