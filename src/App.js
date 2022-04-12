@@ -34,20 +34,21 @@ function App() {
       clearLetterState();
       setGameStage(stages[2].name);
     }
-  }, [guesses])
+  }, [guesses]);
 
-  const pickWordAndCategory = () => {
+  const pickWordAndCategory = useCallback(() => {
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)]
     
     const word = words[category][Math.floor(Math.random() * words[category].length)];
     
     return {word, category};
-  }
-  
+  }, [words]);
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
     const { word, category } = pickWordAndCategory();
+
+    clearLetterState();
 
     let wordLetters = word.split("");
     wordLetters = wordLetters.map((l) => l.toLowerCase());
@@ -56,7 +57,19 @@ function App() {
     setLetters(wordLetters)
 
     setGameStage(stages[1].name);
-  }
+  }, [pickWordAndCategory]);
+
+  useEffect(() => {
+    
+    const uniqueLetters = [...new Set(letters)]
+
+    if(guessedLetters.length === uniqueLetters.length) {
+      setScore((actualScore) => actualScore += 100);
+
+      startGame();
+    }
+
+  }, [guessedLetters, letters, startGame]);
 
   const verifyLetter = (letter) => {
     // setGameStage(stages[2].name);
