@@ -7,4 +7,5 @@ export const wordsList = {
   alimento: ["Arroz", "Feijão", "Carne", "Leite", "Ovo", "Pão"],
   cor: ["Abóbora", "Amarelo", "Azul", "Caramelo", "Gelo", "Marrom", "Roxo", "Rosa", "Vermelho", "Verde"],
   animal: ["Gato", "Pato", "Galo", "Galinha", "Marreco", "Ganso", "Peixe", "Boi", "Vaca", "Cavalo"],
+  nome: ["Wilian", "Isabela", "Fernando", "Gabriel", "Felipe", "Paulo", "Bianca", "Jessé", "Cláudio", "Daniel", "Erickson", "Ana", "Maria", "Adauto", "Jaqueline", "Murilo"]
 };
