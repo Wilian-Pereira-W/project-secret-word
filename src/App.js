@@ -64,7 +64,6 @@ function App() {
     setLetters(wordLetters)
 
     setGameStage(stages[1].name);
-    console.log(difficulty);
   }, [pickWordAndCategory]);
 
   useEffect(() => {
@@ -73,6 +72,7 @@ function App() {
 
     if(guessedLetters.length === uniqueLetters.length) {
       setScore((actualScore) => actualScore += 100);
+      setGuesses((actualGuesses) => actualGuesses + 3);
 
       startGame();
     }
