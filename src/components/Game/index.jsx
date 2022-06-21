@@ -1,8 +1,16 @@
+import PropTypes from 'prop-types';
 import React, { useState, useRef } from 'react';
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
-function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetters, wrongLetters, guesses, score } ) {
-
+function Game({
+  verifyLetter,
+  pickedCategory,
+  letters,
+  guessedLetters,
+  wrongLetters,
+  guesses,
+  score,
+}) {
   const [letter, setLetter] = useState('');
   const letterInputRef = useRef(null);
 
@@ -10,9 +18,9 @@ function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetter
     e.preventDefault();
 
     verifyLetter(letter);
-    setLetter('')
+    setLetter('');
     letterInputRef.current.focus();
-  }
+  };
 
   return (
     <div className={styles.game}>
@@ -25,24 +33,25 @@ function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetter
       </h3>
       <p>Você ainda tem {guesses} tentativas</p>
       <div className={styles.wordContainer}>
-        {letters.map((letter, index) => (
+        {letters.map((letter, index) =>
           guessedLetters.includes(letter) ? (
-            <span key={index} className={styles.letter}>{letter}</span>
-          ) :
-          (
-          <span keys={index} className={styles.blankSquare}></span>
-          )
-        ))}
+            <span key={index} className={styles.letter}>
+              {letter}
+            </span>
+          ) : (
+            <span keys={index} className={styles.blankSquare}></span>
+          ),
+        )}
       </div>
       <div className={styles.letterContainer}>
         <p>Tente adivinhar uma letra da palavra:</p>
         <form onSubmit={handleSubmit}>
-          <input 
-            type="text" 
-            name="letter" 
-            maxLength="1" 
-            required 
-            onChange={({target}) => setLetter(target.value)}
+          <input
+            type="text"
+            name="letter"
+            maxLength="1"
+            required
+            onChange={({ target }) => setLetter(target.value)}
             value={letter}
             ref={letterInputRef}
           />
@@ -55,9 +64,24 @@ function Game({ verifyLetter, pickedWord, pickedCategory, letters, guessedLetter
           <span key={index}>{letter}, </span>
         ))}
       </div>
-
     </div>
   );
 }
+
+Game.propTypes = {
+  guessedLetters: PropTypes.shape({
+    includes: PropTypes.func,
+  }),
+  guesses: PropTypes.any,
+  letters: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+  pickedCategory: PropTypes.any,
+  score: PropTypes.string,
+  verifyLetter: PropTypes.func,
+  wrongLetters: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+};
 
 export default Game;
