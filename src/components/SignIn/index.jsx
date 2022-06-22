@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 
 function SignIn() {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <form>
@@ -22,7 +24,13 @@ function SignIn() {
           />
         </label>
         <button type="button">Login</button>
-        <button type="button">Ainda não tenho conta</button>
+        <button
+          className={styles.accountBtn}
+          type="button"
+          onClick={() => navigate('/register')}
+        >
+          Ainda não tenho conta
+        </button>
       </form>
     </div>
   );

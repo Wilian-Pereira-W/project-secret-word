@@ -27,5 +27,14 @@
     button{
       margin-bottom: 30px;
     }
+
+    .accountBtn{
+      border: 0;
+      background: transparent;
+
+      &:hover{
+        color: red;
+      }
+    }
   }
 }
