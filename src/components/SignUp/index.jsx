@@ -1,13 +1,13 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
+import api from '../../services/api';
 import {
-  validateEmail,
   validateName,
+  validateEmail,
   validatePassword,
   validateNick,
 } from '../../utils/validateRegister';
-import api from '../../services/api';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -15,8 +15,11 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nick, setNick] = useState('');
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorName, setErrorName] = useState([]);
+  const [errorNick, setErrorNick] = useState([]);
+  const [errorEmail, setErrorEmail] = useState([]);
+  const [errorPassword, setErrorPassword] = useState([]);
+  const [existUser, setExistUser] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +31,7 @@ function SignUp() {
     };
 
     api
-      .post('user', data)
+      .post('user/register', data)
       .then((data) => {
         console.log(data);
         setName('');
@@ -38,27 +41,23 @@ function SignUp() {
         navigate('/login');
       })
       .catch((err) => {
-        setErrorMessage(err.response.data.message);
-        console.log('oi');
+        if (typeof err.response.data.message === 'object') {
+          const errName = validateName(err.response.data.message);
+          setErrorName(errName);
+
+          const errEmail = validateEmail(err.response.data.message);
+          setErrorEmail(errEmail);
+
+          const errPassword = validatePassword(err.response.data.message);
+          setErrorPassword(errPassword);
+
+          const errNick = validateNick(err.response.data.message);
+          setErrorNick(errNick);
+        } else {
+          setExistUser(err.response.data.message);
+        }
       });
   };
-
-  const enableButton = useCallback(() => {
-    if (
-      validateName(name) &&
-      validateEmail(email) &&
-      validatePassword(password) &&
-      validateNick(nick)
-    ) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [name, email, password, nick]);
-
-  useEffect(() => {
-    enableButton();
-  }, [name, email, password, nick, enableButton]);
 
   return (
     <div className={styles.container}>
@@ -73,17 +72,23 @@ function SignUp() {
             value={name}
             onChange={({ target }) => setName(target.value)}
           />
+          {errorName.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
         </label>
         <label htmlFor="email">
           Email
           <input
-            type="email"
+            type="txt"
             name="email"
             id="email"
             placeholder="Digite o email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           />
+          {errorEmail.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
         </label>
         <label htmlFor="password">
           Senha
@@ -95,6 +100,9 @@ function SignUp() {
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
+          {errorPassword.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
         </label>
         <label htmlFor="nick">
           Nick
@@ -106,12 +114,13 @@ function SignUp() {
             value={nick}
             onChange={({ target }) => setNick(target.value)}
           />
+          {errorNick.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
         </label>
-        <button disabled={!isDisabled} type="submit">
-          Registrar
-        </button>
+        <button type="submit">Registrar</button>
       </form>
-      <span>{errorMessage}</span>
+      <span>{existUser}</span>
     </div>
   );
 }
