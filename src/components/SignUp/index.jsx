@@ -54,6 +54,10 @@ function SignUp() {
           const errNick = validateNick(err.response.data.message);
           setErrorNick(errNick);
         } else {
+          setErrorName([]);
+          setErrorEmail([]);
+          setErrorPassword([]);
+          setErrorNick([]);
           setExistUser(err.response.data.message);
         }
       });
@@ -93,7 +97,7 @@ function SignUp() {
         <label htmlFor="password">
           Senha
           <input
-            type="password"
+            type="txt"
             name="password"
             id="password"
             placeholder="Digite a senha"
