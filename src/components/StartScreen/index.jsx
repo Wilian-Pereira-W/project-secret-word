@@ -10,7 +10,6 @@ function StartScreen({ startGame }) {
   useEffect(() => {
     setUser(getLocalStorage('user'));
   }, [setUser]);
-
   return (
     <div className={styles.start}>
       <h1>Secret Word</h1>
