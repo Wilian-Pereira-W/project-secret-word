@@ -69,3 +69,9 @@
 .wrongLettersContainer span {
   text-transform: uppercase;
 }
+
+@media (max-width: 428px){
+  .wordContainer{
+    width: 320px;
+  }
+}
