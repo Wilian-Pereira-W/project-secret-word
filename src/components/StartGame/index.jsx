@@ -25,6 +25,7 @@ function StartGame() {
     setScore,
     guesses,
     setGuesses,
+    difficulty,
   } = useContext(AppContext);
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
@@ -89,7 +90,17 @@ function StartGame() {
     const uniqueLetters = [...new Set(letters)];
 
     if (guessedLetters.length === uniqueLetters.length) {
-      setScore((actualScore) => (actualScore += 100));
+      if (difficulty === 'Fácil') {
+        setScore((actualScore) => (actualScore += 100));
+      }
+
+      if (difficulty === 'Médio') {
+        setScore((actualScore) => (actualScore += 100) * 1.5);
+      }
+
+      if (difficulty === 'Difícil') {
+        setScore((actualScore) => (actualScore += 100) * 2);
+      }
       setGuesses((actualGuesses) => actualGuesses + 1);
 
       startGame();
@@ -98,7 +109,7 @@ function StartGame() {
       setScore(0);
       setGameStage(stages[0].name);
     }
-  }, [guessedLetters, letters, setGuesses, setScore, startGame]);
+  }, [difficulty, guessedLetters, letters, setGuesses, setScore, startGame]);
 
   const verifyLetter = (letter) => {
     const normalizedLetter = letter.toLowerCase();
