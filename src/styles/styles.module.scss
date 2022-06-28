@@ -1,0 +1,45 @@
+.container{
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  table{
+    border: 5px solid #FFF;
+    width: 600px;
+
+    caption{
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    thead{
+      tr{
+        th{
+          border: 1px solid #FFF;
+          height: 40px;
+        }
+      }
+    }
+
+    tbody{
+      tr{
+        td{
+          border: 1px solid #FFF;
+          height: 40px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  section{
+    margin-top: 20px;
+    
+    button{
+      margin: 10px;
+    }
+  }
+}
