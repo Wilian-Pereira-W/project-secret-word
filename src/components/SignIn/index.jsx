@@ -9,6 +9,7 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,6 +37,14 @@ function SignIn() {
       });
   };
 
+  const handleShowPassword = () => {
+    if (showPassword) {
+      setShowPassword(false);
+    } else {
+      setShowPassword(true);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit}>
@@ -51,7 +60,7 @@ function SignIn() {
         </label>
         <label htmlFor="password">
           <input
-            type="password"
+            type={showPassword ? 'password' : 'text'}
             name="password"
             id="password"
             placeholder="Digite a senha"
@@ -59,6 +68,13 @@ function SignIn() {
             onChange={({ target }) => setPassword(target.value)}
           />
         </label>
+        <button
+          className={styles.btnIcons}
+          type="button"
+          onClick={() => handleShowPassword()}
+        >
+          <i className="bi bi-eye-slash-fill" />
+        </button>
         <button type="submit">Login</button>
         <button
           className={styles.accountBtn}
