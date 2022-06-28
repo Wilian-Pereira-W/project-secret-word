@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
+import { setLocalStorage } from '../../utils/localStorage';
 import styles from './styles.module.scss';
 
 function SignIn() {
@@ -18,10 +19,13 @@ function SignIn() {
 
     api
       .post('login', data)
-      .then(() => {
+      .then((data) => {
+        console.log(data);
+        setLocalStorage('user', data.data);
         setEmail('');
         setPassword('');
-        navigate('/home');
+        setErrorMessage('');
+        navigate('/game');
       })
       .catch((err) => {
         if (err.response.data.statusCode === 400) {
