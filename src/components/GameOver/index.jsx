@@ -36,6 +36,7 @@ function GameOver({ retry }) {
   const leaveTheGame = () => {
     add();
     removeItem('user');
+    retry();
     navigate('/login');
   };
 
