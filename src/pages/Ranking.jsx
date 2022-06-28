@@ -60,7 +60,7 @@ function Ranking() {
             .map((user, index) => (
               <tr key={user.id}>
                 <td>{index + 1}°</td>
-                <td>{user.scores[0].score}</td>
+                <td>{user.scores[0].score.toFixed(2)}</td>
                 <td>{user.nick}</td>
                 <td>{user.scores[0].difficulty}</td>
               </tr>
