@@ -1,13 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import AppContext from '../../context/context';
+import { getLocalStorage } from '../../utils/localStorage';
 import styles from './styles.module.scss';
 
 function StartScreen({ startGame }) {
-  const [difficulty, setDifficulty] = useState('');
+  const { user, setUser, difficulty, setDifficulty } = useContext(AppContext);
+
+  useEffect(() => {
+    setUser(getLocalStorage('user'));
+  }, [setUser]);
+
   return (
     <div className={styles.start}>
       <h1>Secret Word</h1>
       <div>
+        <span>Olá, {user.nick}</span>
         <p>Escolha a dificuldade</p>
         <div>
           <button
