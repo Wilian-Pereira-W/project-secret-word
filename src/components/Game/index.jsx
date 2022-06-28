@@ -72,7 +72,6 @@ function Game({ verifyLetter }) {
 }
 
 Game.propTypes = {
-  guesses: PropTypes.any,
   verifyLetter: PropTypes.func,
 };
 
