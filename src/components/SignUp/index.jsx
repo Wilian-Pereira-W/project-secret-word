@@ -32,8 +32,7 @@ function SignUp() {
 
     api
       .post('user/register', data)
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         setName('');
         setEmail('');
         setPassword('');
@@ -97,7 +96,7 @@ function SignUp() {
         <label htmlFor="password">
           Senha
           <input
-            type="txt"
+            type="password"
             name="password"
             id="password"
             placeholder="Digite a senha"
