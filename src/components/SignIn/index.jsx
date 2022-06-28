@@ -20,7 +20,6 @@ function SignIn() {
     api
       .post('login', data)
       .then((data) => {
-        console.log(data);
         setLocalStorage('user', data.data);
         setEmail('');
         setPassword('');
