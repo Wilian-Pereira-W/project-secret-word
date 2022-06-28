@@ -22,9 +22,7 @@ function GameOver({ retry }) {
 
     api
       .post('score', data, config)
-      .then((data) => {
-        console.log(data);
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
@@ -40,18 +38,29 @@ function GameOver({ retry }) {
     removeItem('user');
     navigate('/login');
   };
+
+  const ranking = () => {
+    add();
+    retry();
+    navigate('/ranking');
+  };
   return (
     <div className={styles.container}>
       <h1>Fim de jogo</h1>
       <h2>
         {user.nick} sua pontuação foi: <span>{score}</span>
       </h2>
-      <button type="button" onClick={() => playAgain()}>
-        Resetar jogo
-      </button>
-      <button type="button" onClick={() => leaveTheGame()}>
-        Sair do Jogo
-      </button>
+      <section>
+        <button type="button" onClick={() => playAgain()}>
+          Jogar Novamente
+        </button>
+        <button type="button" onClick={() => ranking()}>
+          Ranking
+        </button>
+        <button type="button" onClick={() => leaveTheGame()}>
+          Sair do Jogo
+        </button>
+      </section>
     </div>
   );
 }
